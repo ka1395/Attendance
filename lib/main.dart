@@ -1,6 +1,7 @@
 import 'package:attendance/core/cubit/app_cubit.dart';
 import 'package:attendance/screens/Attendance/presentaion/lecture_attendance.dart';
 import 'package:attendance/screens/home/home_screen.dart';
+import 'package:attendance/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/resources/bloc_observer.dart';
@@ -55,10 +56,15 @@ class MyApp extends StatelessWidget {
         },
         AppRouts.attendanceScreen: (context) {
           initAppCubit();
-
           return BlocProvider.value(
-              value: instance.get<AppCubit>()..getDataFormExcel(),
+              value: instance.get<AppCubit>(),
               child: const LectureAttendance());
+        },
+         AppRouts.searchScreen: (context) {
+          initAppCubit();
+          return BlocProvider.value(
+              value: instance.get<AppCubit>(),
+              child: const SearchScreen());
         },
       },
     );

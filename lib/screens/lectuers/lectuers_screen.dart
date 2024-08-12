@@ -38,6 +38,8 @@ class LecturesScreen extends StatelessWidget {
                         child: CustomLectures(
                             className: "Lecture ${index + 1}",
                             onTap: () {
+                              AppCubit.get(context)
+                                  .getDataFormExcel(index > 2 ? 0 : index);
                               AppCubit.get(context).lectureNumber =
                                   "Lecture ${index + 1}";
                               Navigator.pushNamed(

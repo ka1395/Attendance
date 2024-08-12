@@ -1,5 +1,6 @@
 import 'package:attendance/core/cubit/app_cubit.dart';
 import 'package:attendance/core/cubit/app_state.dart';
+import 'package:attendance/core/resources/routs.dart';
 import 'package:attendance/screens/Attendance/presentaion/widgets/custom_presencet_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,59 +57,60 @@ class LectureAttendance extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => SearchScreen(
-                //         nameStudent: AppCubit.get(context).attendanceList,
-                //       ),
-                //     ));
+                Navigator.pushNamed(context, AppRouts.searchScreen);
               },
               icon: const Icon(
                 Icons.search,
               ))
         ],
       ),
-      body:  AppCubit.get(context).attendanceList.isEmpty?const Center(child: CircleAvatar(),):
-      
-       Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: IntrinsicHeight(
-                      child: CustomPresencetDetails(
-                          title: "الحضور", number: presence.length.toString()),
+      body: AppCubit.get(context).attendanceList.isEmpty
+          ? const Center(
+              child: CircleAvatar(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: IntrinsicHeight(
+                            child: CustomPresencetDetails(
+                                title: "الحضور",
+                                number: presence.length.toString()),
+                          ),
+                        ),
+                        Expanded(
+                          child: IntrinsicHeight(
+                            child: CustomPresencetDetails(
+                                title: "الغياب",
+                                number: absence.length.toString()),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: IntrinsicHeight(
-                      child: CustomPresencetDetails(
-                          title: "الغياب", number: absence.length.toString()),
+                  SliverToBoxAdapter(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: AppCubit.get(context).attendanceList.length,
+                      itemBuilder: (context, index) {
+                        return CustomStudenctCard(
+                          name:
+                              AppCubit.get(context).attendanceList[index].name!,
+                          status: AppCubit.get(context)
+                              .attendanceList[index]
+                              .attend!,
+                        );
+                      },
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
-            SliverToBoxAdapter(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: AppCubit.get(context).attendanceList.length,
-                itemBuilder: (context, index) {
-                  return CustomStudenctCard(
-                    name: AppCubit.get(context).attendanceList[index].name!,
-                    status: AppCubit.get(context).attendanceList[index].attend!,
-                  );
-                },
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 }

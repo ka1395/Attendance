@@ -11,7 +11,6 @@ class HomeScreens extends StatelessWidget {
   const HomeScreens({super.key});
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: CustomScrollView(
       slivers: [
@@ -19,7 +18,7 @@ class HomeScreens extends StatelessWidget {
           child: AppBarWidge(
             title: "الصفحه الرئيسيه",
             imagePath: "assets/images/2.png",
-            nameUser: "اهلاً ,  د. محمد خفاجي",
+            nameUser: "اهلاً ,  د. احمد سلامه",
           ),
         ),
         SliverToBoxAdapter(
