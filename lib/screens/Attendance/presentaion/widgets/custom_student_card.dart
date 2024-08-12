@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../core/resources/app_colors.dart';
+import '../../../../core/resources/app_colors.dart';
 
 class CustomStudenctCard extends StatelessWidget {
   const CustomStudenctCard(
@@ -22,7 +22,7 @@ class CustomStudenctCard extends StatelessWidget {
             Container(
               width: 10,
               decoration: BoxDecoration(
-                  color: status == "غياب"
+                  color: status == "0"
                       ? AppColors.colorRed
                       : AppColors.primaryColorLight),
             ),
@@ -62,13 +62,13 @@ class CustomStudenctCard extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          status,
+                          status == "0"?"غياب":"حضور",
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
                               .copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: status == "غياب"
+                                  color: status == "0"
                                       ? AppColors.colorRed
                                       : AppColors.primaryColorLight),
                         ),

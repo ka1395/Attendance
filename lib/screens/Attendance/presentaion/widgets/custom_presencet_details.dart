@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/resources/app_colors.dart';
+import '../../../../core/resources/app_colors.dart';
 
 class CustomPresencetDetails extends StatelessWidget {
   const CustomPresencetDetails(

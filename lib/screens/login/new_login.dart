@@ -1,7 +1,7 @@
 import 'package:attendance/core/resources/app_colors.dart';
+import 'package:attendance/core/resources/routs.dart';
 import 'package:flutter/material.dart';
 
-import '../home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -114,12 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: MaterialButton(
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
-                            var router = MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const HomeScreens(),
-                            );
                             //can back for previos page
-                            Navigator.of(context).pushReplacement(router);
+                            Navigator.of(context)
+                                .pushReplacementNamed(AppRouts.mainScreen);
                           }
                         },
                         child: Text('تسجيل دخول ',

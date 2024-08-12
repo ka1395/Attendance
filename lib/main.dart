@@ -1,12 +1,20 @@
+import 'package:attendance/core/cubit/app_cubit.dart';
+import 'package:attendance/screens/Attendance/presentaion/lecture_attendance.dart';
+import 'package:attendance/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/resources/bloc_observer.dart';
+import 'core/resources/get_it.dart';
+import 'core/resources/routs.dart';
 import 'core/resources/theme_app.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'screens/lectuers/lectuers_screen.dart';
 import 'screens/login/new_login.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -27,7 +35,32 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: const Locale("ar"),
       theme: lightTheme(),
-      home:const  LoginScreen(),
+      initialRoute: AppRouts.loginScreen,
+      routes: {
+        AppRouts.loginScreen: (context) {
+          initAppCubit();
+          return const LoginScreen();
+        },
+        AppRouts.mainScreen: (context) {
+          initAppCubit();
+          return BlocProvider.value(
+              value: instance.get<AppCubit>(), child: const HomeScreens());
+        },
+        AppRouts.lectursScreen: (context) {
+          initAppCubit();
+
+          return BlocProvider.value(
+              value: instance.get<AppCubit>()..getExcelSheet(),
+              child: const LecturesScreen());
+        },
+        AppRouts.attendanceScreen: (context) {
+          initAppCubit();
+
+          return BlocProvider.value(
+              value: instance.get<AppCubit>()..getDataFormExcel(),
+              child: const LectureAttendance());
+        },
+      },
     );
   }
 }

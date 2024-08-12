@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../core/resources/app_colors.dart';
-import '../Attendance/lecture_attendance.dart';
-import '../Attendance/widgets/custom_student_card.dart';
+import '../Attendance/presentaion/lecture_attendance.dart';
+import '../Attendance/presentaion/widgets/custom_student_card.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key, required this.nameStudent});
