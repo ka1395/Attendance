@@ -104,6 +104,9 @@ class LectureAttendance extends StatelessWidget {
                           status: AppCubit.get(context)
                               .attendanceList[index]
                               .attend!,
+                          imagePath: AppCubit.get(context)
+                              .attendanceList[index]
+                              .imgae!,
                         );
                       },
                     ),

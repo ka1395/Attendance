@@ -3,7 +3,8 @@ class  AttendanceModel{
   final String ?name;
  final  String ?attend;
  final String ?time;
+ final String ?imgae;
 
-  AttendanceModel({this.id, this.name, this.attend, this.time});
+  AttendanceModel({this.id, this.name, this.attend, this.time,this.imgae});
 
 }

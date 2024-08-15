@@ -1,4 +1,3 @@
-
 import 'package:attendance/core/cubit/app_state.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +62,7 @@ class AppCubit extends Cubit<AppState> {
             name: row[1]!.value.toString(),
             attend: row[2]!.value.toString(),
             time: row[3]!.value.toString(),
+            imgae: row[4]!.value.toString(),
           ));
         }
       }

@@ -1,13 +1,16 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/resources/app_colors.dart';
 
 class CustomStudenctCard extends StatelessWidget {
   const CustomStudenctCard(
-      {super.key, required this.name, required this.status});
+      {super.key,
+      required this.name,
+      required this.status,
+      required this.imagePath});
   final String name;
   final String status;
+  final String imagePath;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,17 +22,14 @@ class CustomStudenctCard extends StatelessWidget {
         color: AppColors.colorWhite,
         child: Row(
           children: [
-            Container(
-              width: 10,
-              decoration: BoxDecoration(
-                  color: status == "0"
-                      ? AppColors.colorRed
-                      : AppColors.primaryColorLight),
-            ),
+            Padding(
+                padding: const EdgeInsetsDirectional.only(start: 15),
+                child: CircleAvatar(
+                    foregroundImage: NetworkImage(imagePath), radius: 30)),
             Expanded(
               child: Padding(
                 padding: const EdgeInsetsDirectional.symmetric(
-                    horizontal: 20, vertical: 10),
+                    horizontal: 20, vertical: 20),
                 child: Column(
                   children: [
                     Row(
@@ -62,7 +62,7 @@ class CustomStudenctCard extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          status == "0"?"غياب":"حضور",
+                          status == "0" ? "غياب" : "حضور",
                           style: Theme.of(context)
                               .textTheme
                               .bodyLarge!
@@ -77,7 +77,14 @@ class CustomStudenctCard extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            Container(
+              width: 10,
+              decoration: BoxDecoration(
+                  color: status == "0"
+                      ? AppColors.colorRed
+                      : AppColors.primaryColorLight),
+            ),
           ],
         ),
       ),
