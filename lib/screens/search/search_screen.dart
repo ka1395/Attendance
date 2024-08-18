@@ -66,7 +66,7 @@ class SearchScreen extends StatelessWidget {
                   child: CustomStudenctCard(
                     name: item.name!,
                     status: item.attend!,
-                    imagePath: item.imgae!,
+                    imagePath: item.image!,
                   ),
                 );
               },

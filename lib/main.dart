@@ -2,6 +2,7 @@ import 'package:attendance/core/cubit/app_cubit.dart';
 import 'package:attendance/screens/Attendance/presentaion/lecture_attendance.dart';
 import 'package:attendance/screens/home/home_screen.dart';
 import 'package:attendance/screens/search/search_screen.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/resources/bloc_observer.dart';
@@ -16,7 +17,13 @@ import 'screens/login/new_login.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -60,11 +67,10 @@ class MyApp extends StatelessWidget {
               value: instance.get<AppCubit>(),
               child: const LectureAttendance());
         },
-         AppRouts.searchScreen: (context) {
+        AppRouts.searchScreen: (context) {
           initAppCubit();
           return BlocProvider.value(
-              value: instance.get<AppCubit>(),
-              child: const SearchScreen());
+              value: instance.get<AppCubit>(), child: const SearchScreen());
         },
       },
     );

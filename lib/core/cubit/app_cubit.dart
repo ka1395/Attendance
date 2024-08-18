@@ -1,7 +1,8 @@
-import 'package:attendance/core/cubit/app_state.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:excel/excel.dart';
+import 'package:attendance/core/cubit/app_state.dart';
 import '../../screens/Attendance/data/model/attendance_model.dart';
 
 class AppCubit extends Cubit<AppState> {
@@ -18,58 +19,60 @@ class AppCubit extends Cubit<AppState> {
   String className = "";
   String lectureNumber = "";
   List<AttendanceModel> attendanceList = [];
-  int numberOfExcel = 3;
-  List<Excel>? excels = [];
-  getExcelSheet() async {
-    // emit(GetExcelSheetLoadingState());
-    // FilePickerResult? pickedFile = await FilePicker.platform.pickFiles(
-    //   type: FileType.custom,
-    //   allowedExtensions: ['xlsx'],
-    //   allowMultiple: false,
-    // );
-    // if (pickedFile != null) {
-    //   var byte = File("assets/excel/AttendanceSheet.xlsx").readAsBytesSync();
-    //   excel = Excel.decodeBytes(byte);
+  Excel? excel;
 
-    //   emit(GetExcelSheetSuccessState());
-    // } else {
-    //   emit(GetExcelSheetErrorState());
-    // }
-    excels = [];
-    emit(GetExcelSheetLoadingState());
-    for (int i = 0; i < numberOfExcel; i++) {
+  Future<void> getExcelSheet() async {
+    try {
+      emit(GetExcelSheetLoadingState());
+
       ByteData data =
-          await rootBundle.load("assets/excel/AttendanceSheet${i + 1}.xlsx");
+          await rootBundle.load('assets/excel/AttendanceSheet1.xlsx');
       List<int> bytes =
           data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      excels!.add(Excel.decodeBytes(bytes));
-    }
+      excel = Excel.decodeBytes(bytes);
 
-    emit(GetExcelSheetSuccessState());
+      emit(GetExcelSheetSuccessState());
+    } catch (e) {
+      print('Error loading Excel sheet: $e');
+      emit(GetExcelSheetErrorState());
+    }
   }
 
-  getDataFormExcel(int index) {
+  void getDataFormExcel() {
     attendanceList = [];
-    if (excels![index] != null) {
-      for (var table in excels![index].tables.keys) {
-        // print(table); //sheet Name
-        // print(excel.tables[table]!.maxColumns);
-        // print(excel.tables[table]!.maxRows);
-        for (var row in excels![index].tables[table]!.rows) {
-          // print(row.single!.value);
+    if (excel != null) {
+      for (var table in excel!.tables.keys) {
+        for (var row in excel!.tables[table]!.rows) {
+          String? type = row[3]?.value.toString();
+          String mappedType = "0"; 
+
+          if (type != null) {
+            if (type.contains("Late") || type.contains("Leave Early")) {
+              mappedType = "1";
+            } else if (type.contains("Absenteeism")) {
+              mappedType = "0";
+            }
+          }
+String? name = row[0]?.value.toString();
+        String trimmedName = name?.replaceAll(' ', '') ?? ''; 
+        String imageName = trimmedName.toLowerCase();
+
           attendanceList.add(AttendanceModel(
-            id: row[0]!.value.toString(),
-            name: row[1]!.value.toString(),
-            attend: row[2]!.value.toString(),
-            time: row[3]!.value.toString(),
-            imgae: row[4]!.value.toString(),
+            name: row[0]?.value.toString() ?? '',
+            checkTime: row[4]?.value.toString() ?? '',
+            image: "assets/images/$imageName.jpeg"
           ));
         }
+        if (attendanceList.isNotEmpty) {
+          attendanceList.removeAt(0);
+        }
+
+        emit(GetDataFromExcelSheetSuccessState());
       }
-      attendanceList.removeAt(0);
-      emit(GetDataFromExcelSheetSuccessState());
     } else {
       emit(GetDataFromExcelSheetErrorState());
     }
   }
 }
+
+

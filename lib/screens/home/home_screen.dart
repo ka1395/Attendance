@@ -17,7 +17,7 @@ class HomeScreens extends StatelessWidget {
         const SliverToBoxAdapter(
           child: AppBarWidge(
             title: "الصفحه الرئيسيه",
-            imagePath: "assets/images/2.png",
+            imagePath: "assets/images/6.png",
             nameUser: "اهلاً ,  د. احمد سلامه",
           ),
         ),
