@@ -2,6 +2,7 @@ import 'package:attendance/core/cubit/app_cubit.dart';
 import 'package:attendance/screens/Attendance/presentaion/lecture_attendance.dart';
 import 'package:attendance/screens/home/home_screen.dart';
 import 'package:attendance/screens/search/search_screen.dart';
+import 'package:attendance/screens/testxml.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: const Locale("ar"),
       theme: lightTheme(),
-      initialRoute: AppRouts.loginScreen,
+      initialRoute: AppRouts.testXml,
       routes: {
         AppRouts.loginScreen: (context) {
           initAppCubit();
@@ -71,6 +72,11 @@ class MyApp extends StatelessWidget {
           initAppCubit();
           return BlocProvider.value(
               value: instance.get<AppCubit>(), child: const SearchScreen());
+        },
+        AppRouts.testXml: (context) {
+          initAppCubit();
+          return BlocProvider.value(
+              value: instance.get<AppCubit>(), child: const XmlRequest());
         },
       },
     );

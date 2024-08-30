@@ -5,5 +5,5 @@ class AppRouts {
   static const String lectursScreen = "/LectursScreen";
   static const String attendance = "/AttendanceScreen";
   static const String searchScreen = "/SearchScreen";
-
+  static const String testXml = "/testXml";
 }

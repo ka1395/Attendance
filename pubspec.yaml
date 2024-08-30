@@ -48,6 +48,10 @@ dependencies:
   excel: ^4.0.2
   file_picker: ^8.0.0+1
   get_it: ^7.7.0
+  http: 
+  xml: 
+  xml2json: ^6.2.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

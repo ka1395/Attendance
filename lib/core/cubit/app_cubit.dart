@@ -58,6 +58,7 @@ String? name = row[0]?.value.toString();
         String imageName = trimmedName.toLowerCase();
 
           attendanceList.add(AttendanceModel(
+            attend:mappedType,
             name: row[0]?.value.toString() ?? '',
             checkTime: row[4]?.value.toString() ?? '',
             image: "assets/images/$imageName.jpeg"
