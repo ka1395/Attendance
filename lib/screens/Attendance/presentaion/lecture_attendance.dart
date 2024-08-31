@@ -11,25 +11,6 @@ class LectureAttendance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<StudentData> nameStudent = [
-    //   StudentData(name: 'Ahmed (أحمد)', status: "حضور"),
-    //   StudentData(name: 'Mohammed (محمد)', status: "غياب"),
-    //   StudentData(name: 'Ali (علي)', status: "حضور"),
-    //   StudentData(name: 'Omar (عمر)', status: "غياب"),
-    //   StudentData(name: 'Yusuf (يوسف)', status: "حضور"),
-    //   StudentData(name: 'Ibrahim (إبراهيم)', status: "حضور"),
-    //   StudentData(name: 'Khalid (خالد)', status: "حضور"),
-    //   StudentData(name: 'Hassan (حسن)', status: "غياب"),
-    //   StudentData(name: 'Faisal (فيصل)', status: "حضور"),
-    //   StudentData(name: 'Abdullah (عبد الله)', status: "غياب"),
-    //   StudentData(name: 'Fatima (فاطمة)', status: "غياب"),
-    //   StudentData(name: 'Aisha (عائشة)', status: "حضور"),
-    //   StudentData(name: 'Zainab (زينب)', status: "حضور"),
-    //   StudentData(name: 'Mariam (مريم)', status: "حضور"),
-    //   StudentData(name: 'Noor (نور)', status: "حضور"),
-    //   StudentData(name: 'Layla (ليلى)', status: "حضور"),
-    //   StudentData(name: 'Salma (سلمى)', status: "غياب"),
-    // ];
     List absence = [];
     List presence = [];
     if (AppCubit.get(context).attendanceList.isNotEmpty) {
@@ -104,11 +85,12 @@ class LectureAttendance extends StatelessWidget {
                           status: AppCubit.get(context)
                               .attendanceList[index]
                               .attend!,
-                          imagePath: index > 2
-                              ? "assets/images/6.png"
-                              : AppCubit.get(context)
-                                  .attendanceList[index]
-                                  .image!,
+                          imagePath: AppCubit.get(context)
+                              .attendanceList[index]
+                              .image!,
+                          date: AppCubit.get(context)
+                              .attendanceList[index]
+                              .checkTime!,
                         );
                       },
                     ),

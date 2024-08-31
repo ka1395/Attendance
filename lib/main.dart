@@ -12,6 +12,7 @@ import 'core/resources/routs.dart';
 import 'core/resources/theme_app.dart';
 import 'generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'screens/Attendance/presentaion/lecture_attendance_student.dart';
 import 'screens/lectuers/lectuers_screen.dart';
 import 'screens/login/new_login.dart';
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale: const Locale("ar"),
       theme: lightTheme(),
-      initialRoute: AppRouts.testXml,
+      initialRoute: AppRouts.loginScreen,
       routes: {
         AppRouts.loginScreen: (context) {
           initAppCubit();
@@ -59,8 +60,7 @@ class MyApp extends StatelessWidget {
           initAppCubit();
 
           return BlocProvider.value(
-              value: instance.get<AppCubit>()..getExcelSheet(),
-              child: const LecturesScreen());
+              value: instance.get<AppCubit>(), child: const LecturesScreen());
         },
         AppRouts.attendanceScreen: (context) {
           initAppCubit();
@@ -72,6 +72,12 @@ class MyApp extends StatelessWidget {
           initAppCubit();
           return BlocProvider.value(
               value: instance.get<AppCubit>(), child: const SearchScreen());
+        },
+        AppRouts.attendanceScreenStudent: (context) {
+          initAppCubit();
+          return BlocProvider.value(
+              value: instance.get<AppCubit>(),
+              child: const LectureAttendanceStudent());
         },
         AppRouts.testXml: (context) {
           initAppCubit();

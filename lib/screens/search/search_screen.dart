@@ -67,6 +67,7 @@ class SearchScreen extends StatelessWidget {
                     name: item.name!,
                     status: item.attend!,
                     imagePath: item.image!,
+                    date: item.checkTime!,
                   ),
                 );
               },

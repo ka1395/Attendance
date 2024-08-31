@@ -16,7 +16,7 @@ ThemeData lightTheme() {
           elevation: 5,
           shadowColor: AppColors.primaryColorLight,
           iconTheme: const IconThemeData(color: AppColors.colorWhite),
-          shape:const RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),

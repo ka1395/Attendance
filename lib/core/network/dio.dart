@@ -13,7 +13,6 @@ class DioHelper {
   static Future<Response> get({
     required String url,
     Map<String, dynamic>? query,
- 
     String? token,
   }) async {
     dio.options.headers = {
@@ -35,7 +34,7 @@ class DioHelper {
     };
     return await dio.post(url, data: data, queryParameters: query);
   }
-  
+
   static Future<Response> put({
     required String url,
     required Map<String, dynamic> data,

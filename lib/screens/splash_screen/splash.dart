@@ -1,13 +1,8 @@
- 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 import '../login/new_login.dart';
-
-
- 
- 
 
 class SplashScreen extends StatefulWidget {
   //route name for our screen
@@ -24,12 +19,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     //we use future to go from one screen to other via duration time
-  //  Future.delayed(Duration(seconds: 5), (){
-      //no return when user is on login screen and press back, it will not return the
-      //user to the splash screen
-   //   Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
+    //  Future.delayed(Duration(seconds: 5), (){
+    //no return when user is on login screen and press back, it will not return the
+    //user to the splash screen
+    //   Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
     //});
-    
+
     // بدء مؤقت لمدة ثلاثه ثوانٍ
     Timer(const Duration(seconds: 3), () {
       // الانتقال إلى شاشة تسجيل الدخول بعد انتهاء المؤقت
@@ -39,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     });
   }
+
   @override
   Widget build(BuildContext context) {
     //scaffold color set to primary color in main in our text theme
@@ -52,28 +48,28 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 SizedBox(
-                        height: 300,
-                        width: 300,
-                        child: Image.asset('assets/images/splash.jpeg'),
+                SizedBox(
+                  height: 300,
+                  width: 300,
+                  child: Image.asset('assets/images/splash.jpeg'),
+                ),
+                const SizedBox(
+                  height: 0.0,
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      'السبوره الالكترونيه',
+                      style: TextStyle(
+                        // color: Colors.black26,
+                        //color: Color(0xff2e386b),
+                        color: Color.fromARGB(255, 13, 73, 194),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
-
-                      const SizedBox(
-                    height: 0.0,
-                  ),
-            const Row(
-              children:[
-                 Text('السبوره الالكترونيه'      , 
-                 style: TextStyle(
-                         // color: Colors.black26,
-                          //color: Color(0xff2e386b),
-                           color: Color.fromARGB(255, 13, 73, 194),
-                          fontSize: 30,
-                           fontWeight: FontWeight.bold,
-                         ),
-                 ),
-              ],
-              ),
+                    ),
+                  ],
+                ),
               ],
             ),
             // Center(
@@ -83,7 +79,6 @@ class _SplashScreenState extends State<SplashScreen> {
             //             child: Image.asset('assets/images/welcom.png'),
             //           ),
             //           ),
-
           ],
         ),
       ),

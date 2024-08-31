@@ -31,11 +31,11 @@ TextStyle black20bold() => const TextStyle(
       fontWeight: FontWeight.bold,
       color: AppColors.textColorLight,
     );
-        TextStyle black22bold() => const TextStyle(
+TextStyle black22bold() => const TextStyle(
       fontSize: 22.0,
       color: AppColors.textColorLight,
     );
-    TextStyle black24bold() => const TextStyle(
+TextStyle black24bold() => const TextStyle(
       fontSize: 24.0,
       color: AppColors.textColorLight,
     );
@@ -63,7 +63,6 @@ TextStyle black20regular() => const TextStyle(
       fontSize: 20.0,
       color: AppColors.textColorLight,
     );
-
 
 TextStyle white10bold() => const TextStyle(
       fontSize: 10.0,
@@ -95,11 +94,11 @@ TextStyle white20bold() => const TextStyle(
       fontWeight: FontWeight.bold,
       color: AppColors.colorWhite,
     );
-   TextStyle white22bold() => const TextStyle(
+TextStyle white22bold() => const TextStyle(
       fontSize: 22.0,
       color: AppColors.textColorLight,
     );
-    TextStyle white24bold() => const TextStyle(
+TextStyle white24bold() => const TextStyle(
       fontSize: 24.0,
       color: AppColors.textColorLight,
     );

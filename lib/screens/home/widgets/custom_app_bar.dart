@@ -1,5 +1,9 @@
+import 'package:attendance/core/cubit/app_cubit.dart';
 import 'package:attendance/core/resources/app_colors.dart';
+import 'package:attendance/core/resources/routs.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/model/user_data.dart';
 
 class AppBarWidge extends StatelessWidget {
   const AppBarWidge({
@@ -30,11 +34,24 @@ class AppBarWidge extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(title,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: AppColors.colorWhite)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge!
+                      .copyWith(color: AppColors.colorWhite)),
+              IconButton(
+                  onPressed: () {
+                    AppCubit.get(context).userData = UserData();
+                    Navigator.pushReplacementNamed(
+                        context, AppRouts.loginScreen);
+                  },
+                  icon:
+                     const  Icon(Icons.logout_outlined, color: AppColors.colorWhite))
+            ],
+          ),
           Row(
             children: [
               CircleAvatar(

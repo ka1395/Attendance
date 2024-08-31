@@ -1,17 +1,10 @@
+class AttendanceModel {
+  final String? name;
+  final String? attend;
+  final String? checkTime;
+  final String? image;
+  final String? id;
 
-class  AttendanceModel{
-  
-  final String ?name;
- final  String ?attend;
- final String ?checkTime;
- final String ?image;
-
-  AttendanceModel({
-   
-     this.name,
-      this.attend, 
-     this.checkTime,
-     this.image
-     });
-
+  AttendanceModel(
+      {this.name, this.attend, this.checkTime, this.image, this.id});
 }

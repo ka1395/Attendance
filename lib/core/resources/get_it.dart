@@ -6,8 +6,8 @@ final instance = GetIt.instance;
 
 initAppCubit() {
   if (!GetIt.I.isRegistered<AppCubit>()) {
-      print("create instance");
-   
+    print("create instance");
+
     instance.registerLazySingleton<AppCubit>(() => AppCubit());
   }
 }

@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
+import '../../core/constant.dart';
 import '../../core/resources/app_colors.dart';
+import '../Attendance/data/model/attendance_model.dart';
 
 class LecturesScreen extends StatelessWidget {
   const LecturesScreen({
@@ -39,11 +41,50 @@ class LecturesScreen extends StatelessWidget {
                             className: "Lecture ${index + 1}",
                             onTap: () {
                               AppCubit.get(context)
-                                  .getDataFormExcel();
-                              AppCubit.get(context).lectureNumber =
-                                  "Lecture ${index + 1}";
-                              Navigator.pushNamed(
-                                  context, AppRouts.attendanceScreen);
+                                  .getExcelSheet(
+                                className: AppCubit.get(context).className,
+                                lectureNumber: (index + 1).toString(),
+                              )
+                                  .then(
+                                (value) {
+                                  AppCubit.get(context).getDataFormExcel();
+
+                                  if (AppCubit.get(context)
+                                      .attendanceList
+                                      .isNotEmpty) {
+                                    if ( AppCubit.get(context).userData!.isStudent=="1") {
+                                      String id = AppCubit.get(context).userData!.id!;
+
+                                      AppCubit.get(context).studentData =
+                                          AppCubit.get(context)
+                                              .attendanceList
+                                              .firstWhere(
+                                                (element) => element.id == id,
+                                              );
+
+                                      AppCubit.get(context).lectureNumber =
+                                          "Lecture ${index + 1}";
+
+                                      Navigator.pushNamed(context,
+                                          AppRouts.attendanceScreenStudent);
+                                    } else {
+                                      AppCubit.get(context).lectureNumber =
+                                          "Lecture ${index + 1}";
+
+                                      Navigator.pushNamed(
+                                          context, AppRouts.attendanceScreen);
+                                    }
+                                    //if student
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => const AlertDialog(
+                                        content: Text("المحاضره لم تبدا بعد"),
+                                      ),
+                                    );
+                                  }
+                                },
+                              );
                             }));
                   },
                 ),
