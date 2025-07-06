@@ -4,35 +4,48 @@ import 'package:attendance/core/resources/routs.dart';
 import 'package:attendance/screens/Attendance/presentaion/widgets/custom_presencet_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../home/model/data_model/student.dart';
 import 'widgets/custom_student_card.dart';
 
-class LectureAttendance extends StatelessWidget {
-  const LectureAttendance({super.key});
+class LectureAttendance extends StatefulWidget {
+  const LectureAttendance({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    List absence = [];
-    List presence = [];
-    if (AppCubit.get(context).attendanceList.isNotEmpty) {
-      absence = AppCubit.get(context)
-          .attendanceList
+  State<LectureAttendance> createState() => _LectureAttendanceState();
+}
+
+class _LectureAttendanceState extends State<LectureAttendance> {
+  late List<Student> students;
+  List absence = [];
+  List presence = [];
+  @override
+  initState() {
+    super.initState();
+
+    students = AppCubit.get(context).lectureData!.students!;
+    if (students.isNotEmpty) {
+      absence = students
           .where(
-            (element) => element.attend == "0",
+            (element) => element.isAttend == false,
           )
           .toList();
-      presence = AppCubit.get(context)
-          .attendanceList
+      presence = students
           .where(
-            (element) => element.attend == "1",
+            (element) => element.isAttend == true,
           )
           .toList();
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) => Text(
-            AppCubit.get(context).lectureNumber,
+            "lecture ${AppCubit.get(context).lectureData!.lectureNumber}",
           ),
         ),
         actions: [
@@ -45,7 +58,7 @@ class LectureAttendance extends StatelessWidget {
               ))
         ],
       ),
-      body: AppCubit.get(context).attendanceList.isEmpty
+      body: students.isEmpty
           ? const Center(
               child: CircleAvatar(),
             )
@@ -77,26 +90,13 @@ class LectureAttendance extends StatelessWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: AppCubit.get(context).attendanceList.length,
+                      itemCount: students.length,
                       itemBuilder: (context, index) {
-                        String imagePath = '';
-
-                        imagePath = "assets/images/$index.png";
-
                         return CustomStudenctCard(
-                          name:
-                              AppCubit.get(context).attendanceList[index].name!,
-                          status: AppCubit.get(context)
-                              .attendanceList[index]
-                              .attend!,
-                          imagePath: index < 3
-                              ? imagePath
-                              : AppCubit.get(context)
-                                  .attendanceList[index]
-                                  .image!,
-                          date: AppCubit.get(context)
-                              .attendanceList[index]
-                              .checkTime!,
+                          name: students[index].name!,
+                          status: students[index].isAttend ?? false,
+                          imagePath: students[index].image ?? '',
+                          date: students[index].checkInTime!,
                         );
                       },
                     ),
@@ -108,9 +108,9 @@ class LectureAttendance extends StatelessWidget {
   }
 }
 
-class StudentData {
-  final String name;
-  final String status;
+// class StudentData {
+//   final String name;
+//   final String status;
 
-  StudentData({required this.name, required this.status});
-}
+//   StudentData({required this.name, required this.status});
+// }

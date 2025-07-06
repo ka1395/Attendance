@@ -1,23 +1,37 @@
 import 'package:attendance/core/cubit/app_cubit.dart';
 import 'package:attendance/core/cubit/app_state.dart';
-import 'package:attendance/core/resources/routs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../core/resources/app_colors.dart';
+import '../../core/resources/routs.dart';
+import '../home/model/data_model/subject.dart';
 
-class LecturesScreen extends StatelessWidget {
+class LecturesScreen extends StatefulWidget {
   const LecturesScreen({
     super.key,
   });
+
+  @override
+  State<LecturesScreen> createState() => _LecturesScreenState();
+}
+
+class _LecturesScreenState extends State<LecturesScreen> {
+  late Subject subjectLectures;
+  @override
+  void initState() {
+    subjectLectures = AppCubit.get(context).subjectData!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(
           title: Text(
-            AppCubit.get(context).className,
+            subjectLectures.subjectName!,
           ),
           centerTitle: true,
         ),
@@ -30,58 +44,83 @@ class LecturesScreen extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(10),
-                  itemCount: 9,
+                  itemCount: subjectLectures.lectures!.length,
                   itemBuilder: (BuildContext context, int index) {
+                    var lecture = subjectLectures.lectures![index];
                     return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 500),
-                        child: CustomLectures(
-                            className: "Lecture ${index + 1}",
-                            onTap: () async {
-                              await AppCubit.get(context).getExcelSheet(
-                                className: AppCubit.get(context).className,
-                                lectureNumber: (index + 1).toString(),
+                      position: index,
+                      duration: const Duration(milliseconds: 500),
+                      child: CustomLectures(
+                        className: "Lecture ${lecture.lectureNumber}",
+                        onTap: () async {
+                          if (lecture.students!.isNotEmpty) {
+                            if (AppCubit.get(context).userData!.isStudent ==
+                                "1") {
+                              String id = AppCubit.get(context).userData!.id!;
+
+                              AppCubit.get(context).myStudentData =
+                                  lecture.students!.firstWhere(
+                                (element) => element.id == id,
                               );
 
-                              AppCubit.get(context).getDataFormExcel();
+                              Navigator.pushNamed(
+                                  context, AppRouts.attendanceScreenStudent);
+                            } else {
+                              Navigator.pushNamed(
+                                  context, AppRouts.attendanceScreen);
+                            }
+                            AppCubit.get(context).lectureData = lecture;
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AlertDialog(
+                                content: Text("المحاضره لم تبدا بعد"),
+                              ),
+                            );
+                          }
+                          // await AppCubit.get(context).getExcelSheet(
+                          //   className: AppCubit.get(context).className,
+                          //   lectureNumber: (index + 1).toString(),
+                          // );
 
-                              if (AppCubit.get(context)
-                                  .attendanceList
-                                  .isNotEmpty) {
-                                if (AppCubit.get(context).userData!.isStudent ==
-                                    "1") {
-                                  String id =
-                                      AppCubit.get(context).userData!.id!;
+                          // AppCubit.get(context).getDataFormExcel();
 
-                                  AppCubit.get(context).studentData =
-                                      AppCubit.get(context)
-                                          .attendanceList
-                                          .firstWhere(
-                                            (element) => element.id == id,
-                                          );
+                          // if (AppCubit.get(context).attendanceList.isNotEmpty) {
+                          //   if (AppCubit.get(context).userData!.isStudent ==
+                          //       "1") {
+                          //     String id = AppCubit.get(context).userData!.id!;
 
-                                  AppCubit.get(context).lectureNumber =
-                                      "Lecture ${index + 1}";
+                          //     AppCubit.get(context).studentData =
+                          //         AppCubit.get(context)
+                          //             .attendanceList
+                          //             .firstWhere(
+                          //               (element) => element.id == id,
+                          //             );
 
-                                  Navigator.pushNamed(context,
-                                      AppRouts.attendanceScreenStudent);
-                                } else {
-                                  AppCubit.get(context).lectureNumber =
-                                      "Lecture ${index + 1}";
+                          //     AppCubit.get(context).lectureNumber =
+                          //         "Lecture ${index + 1}";
 
-                                  Navigator.pushNamed(
-                                      context, AppRouts.attendanceScreen);
-                                }
-                                //if student
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content: Text("المحاضره لم تبدا بعد"),
-                                  ),
-                                );
-                              }
-                            }));
+                          //     Navigator.pushNamed(
+                          //         context, AppRouts.attendanceScreenStudent);
+                          //   } else {
+                          //     AppCubit.get(context).lectureNumber =
+                          //         "Lecture ${index + 1}";
+
+                          //     Navigator.pushNamed(
+                          //         context, AppRouts.attendanceScreen);
+                          //   }
+                          //   //if student
+                          // } else {
+                          //   showDialog(
+                          //     context: context,
+                          //     builder: (context) => const AlertDialog(
+                          //       content: Text("المحاضره لم تبدا بعد"),
+                          //     ),
+                          //   );
+                          // }
+                        },
+                      ),
+                    );
                   },
                 ),
               ),

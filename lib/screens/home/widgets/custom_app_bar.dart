@@ -48,8 +48,8 @@ class AppBarWidge extends StatelessWidget {
                     Navigator.pushReplacementNamed(
                         context, AppRouts.loginScreen);
                   },
-                  icon:
-                     const  Icon(Icons.logout_outlined, color: AppColors.colorWhite))
+                  icon: const Icon(Icons.logout_outlined,
+                      color: AppColors.colorWhite))
             ],
           ),
           Row(

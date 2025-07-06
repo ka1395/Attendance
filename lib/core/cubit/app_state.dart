@@ -11,7 +11,15 @@ class GetExcelSheetErrorState extends AppState {}
 class GetDataFromExcelSheetSuccessState extends AppState {}
 
 class GetDataFromExcelSheetErrorState extends AppState {}
+
 class LoginErrorState extends AppState {}
 
 class LoginSuccessState extends AppState {}
+
 class LoginLoadingState extends AppState {}
+
+class GetDataLoadingState extends AppState {}
+
+class GetDataSuccessState extends AppState {}
+
+class GetDataErrorState extends AppState {}

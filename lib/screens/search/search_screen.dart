@@ -5,14 +5,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../core/resources/app_colors.dart';
-import '../Attendance/data/model/attendance_model.dart';
 import '../Attendance/presentaion/widgets/custom_student_card.dart';
+import '../home/model/data_model/student.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  late List<Student> students;
+
+  @override
+  void initState() {
+    students = AppCubit.get(context).lectureData!.students!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    SuggestionsController<AttendanceModel>? suggestionsController =
+    SuggestionsController<Student>? suggestionsController =
         SuggestionsController();
     TextEditingController customSearch = TextEditingController();
     return Scaffold(
@@ -27,10 +41,10 @@ class SearchScreen extends StatelessWidget {
             height: 50,
             width: double.infinity,
             margin: const EdgeInsets.symmetric(vertical: 10),
-            child: TypeAheadField<AttendanceModel>(
+            child: TypeAheadField<Student>(
               suggestionsController: suggestionsController,
               suggestionsCallback: (search) {
-                return AppCubit.get(context).attendanceList.where((element) {
+                return students.where((element) {
                   return element.name!
                       .toUpperCase()
                       .contains(search.toUpperCase());
@@ -65,9 +79,9 @@ class SearchScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomStudenctCard(
                     name: item.name!,
-                    status: item.attend!,
+                    status: item.isAttend!,
                     imagePath: item.image!,
-                    date: item.checkTime!,
+                    date: item.checkInTime !,
                   ),
                 );
               },

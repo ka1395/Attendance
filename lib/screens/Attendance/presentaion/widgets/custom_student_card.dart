@@ -10,7 +10,7 @@ class CustomStudenctCard extends StatelessWidget {
       required this.imagePath,
       required this.date});
   final String name;
-  final String status;
+  final bool status;
   final String imagePath;
   final String date;
   @override
@@ -31,7 +31,8 @@ class CustomStudenctCard extends StatelessWidget {
                     padding:
                         const EdgeInsetsDirectional.only(start: 15, bottom: 20),
                     child: CircleAvatar(
-                        foregroundImage: AssetImage(imagePath), radius: 30)),
+                        foregroundImage: AssetImage("assets/images/$imagePath"),
+                        radius: 30)),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsetsDirectional.symmetric(
@@ -74,15 +75,15 @@ class CustomStudenctCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              status == "0" ? "غياب" : "حضور",
+                              status ? "حضور" : "غياب",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: status == "0"
-                                          ? AppColors.colorRed
-                                          : AppColors.primaryColorLight),
+                                      color: status
+                                          ? AppColors.primaryColorLight
+                                          : AppColors.colorRed),
                             ),
                           ],
                         ),

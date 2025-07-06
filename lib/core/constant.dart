@@ -1,5 +1,6 @@
 import 'package:attendance/core/model/user_data.dart';
 
+String baseUrl = "https://85aef5d2-c9e9-4d49-b0f5-f39ebdfc116b.mock.pstmn.io";
 bool isStudent = false;
 List<UserData> users = [
   UserData(

@@ -1,4 +1,5 @@
 import 'package:attendance/core/cubit/app_cubit.dart';
+import 'package:attendance/core/network/dio.dart';
 import 'package:attendance/screens/Attendance/presentaion/lecture_attendance.dart';
 import 'package:attendance/screens/home/home_screen.dart';
 import 'package:attendance/screens/search/search_screen.dart';
@@ -18,6 +19,7 @@ import 'screens/login/new_login.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  DioHelper.init();
   runApp(const MyApp());
   // runApp(
   //   DevicePreview(
