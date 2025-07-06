@@ -79,15 +79,21 @@ class LectureAttendance extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: AppCubit.get(context).attendanceList.length,
                       itemBuilder: (context, index) {
+                        String imagePath = '';
+
+                        imagePath = "assets/images/$index.png";
+
                         return CustomStudenctCard(
                           name:
                               AppCubit.get(context).attendanceList[index].name!,
                           status: AppCubit.get(context)
                               .attendanceList[index]
                               .attend!,
-                          imagePath: AppCubit.get(context)
-                              .attendanceList[index]
-                              .image!,
+                          imagePath: index < 3
+                              ? imagePath
+                              : AppCubit.get(context)
+                                  .attendanceList[index]
+                                  .image!,
                           date: AppCubit.get(context)
                               .attendanceList[index]
                               .checkTime!,

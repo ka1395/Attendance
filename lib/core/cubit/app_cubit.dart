@@ -55,16 +55,16 @@ class AppCubit extends Cubit<AppState> {
               mappedType = "0";
             }
           }
-          String? name = row[0]?.value.toString();
-          String trimmedName = name?.replaceAll(' ', '') ?? '';
-          String imageName = trimmedName.toLowerCase();
+          // String? name = row[0]?.value.toString();
+          // String trimmedName = name?.replaceAll(' ', '') ?? '';
+          // String imageName = trimmedName.toLowerCase();
 
           attendanceList.add(AttendanceModel(
               attend: mappedType,
               name: row[0]?.value.toString() ?? '',
               checkTime: row[1]?.value.toString() ?? '',
               id: row[5]?.value.toString() ?? '',
-              image: "assets/images/6.png"));
+              image: "assets/images/66.png"));
         }
         if (attendanceList.isNotEmpty) {
           attendanceList.removeAt(0);

@@ -3,7 +3,6 @@ import 'package:attendance/screens/Attendance/presentaion/lecture_attendance.dar
 import 'package:attendance/screens/home/home_screen.dart';
 import 'package:attendance/screens/search/search_screen.dart';
 import 'package:attendance/screens/testxml.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/resources/bloc_observer.dart';
@@ -19,13 +18,13 @@ import 'screens/login/new_login.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  // runApp(const MyApp());
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => MyApp(),
-    ),
-  );
+  runApp(const MyApp());
+  // runApp(
+  //   DevicePreview(
+  //     enabled: true,
+  //     builder: (context) => MyApp(),
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {

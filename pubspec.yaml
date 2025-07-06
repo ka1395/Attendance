@@ -40,7 +40,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_typeahead: ^5.2.0
-  flutter_staggered_animations: ^1.1.1
+  flutter_staggered_animations:
   device_preview: ^1.2.0
   flutter_native_splash: ^2.3.5
   bloc: null
@@ -50,7 +50,7 @@ dependencies:
   get_it: ^7.7.0
   http: 
   xml: 
-  xml2json: ^6.2.3
+  xml2json: 
 
 dev_dependencies:
   flutter_test:
