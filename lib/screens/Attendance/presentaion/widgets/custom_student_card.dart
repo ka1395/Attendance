@@ -31,7 +31,8 @@ class CustomStudenctCard extends StatelessWidget {
                     padding:
                         const EdgeInsetsDirectional.only(start: 15, bottom: 20),
                     child: CircleAvatar(
-                        foregroundImage: AssetImage("assets/images/$imagePath"),
+                        foregroundImage: NetworkImage(imagePath),
+                        //  AssetImage("assets/images/$imagePath"),
                         radius: 30)),
                 Expanded(
                   child: Padding(
